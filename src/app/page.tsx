@@ -1,6 +1,6 @@
-import {DateTime, IANAZone, Zone} from 'luxon'
+import {DateTime} from 'luxon'
 
-export function modifiedFormatDateWithOptions(unformattedDate: string, locale: string = 'en-US', options?: Intl.DateTimeFormatOptions) {
+function modifiedFormatDateWithOptions(unformattedDate: string, locale: string = 'en-US', options?: Intl.DateTimeFormatOptions) {
     const formatted = new Date(unformattedDate);
     const defaultOptions: Intl.DateTimeFormatOptions = {
         day: "numeric",
