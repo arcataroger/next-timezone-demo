@@ -1,22 +1,4 @@
 import {DateTime} from 'luxon'
-
-function modifiedFormatDateWithOptions(unformattedDate: string, locale: string = 'en-US', options?: Intl.DateTimeFormatOptions) {
-    const formatted = new Date(unformattedDate);
-    const defaultOptions: Intl.DateTimeFormatOptions = {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-        timeZoneName: "long"// Added the time zone to make this more explicit
-    };
-
-    return formatted
-        .toLocaleDateString(
-            locale === "en_UK" ? "en-UK" : locale === "en_US" ? "en-US" : locale,
-            {...defaultOptions, ...options} // Also append any options we specify
-        )
-        .replace(",", " ");
-}
-
 export default function Home() {
 
     // Our API returns an ISO date
@@ -34,8 +16,24 @@ export default function Home() {
 
     const jsISODate = new Date(inputDate).toISOString()
     const jsFormattedDate = modifiedFormatDateWithOptions(inputDate, 'en-US');
-    const jsFormattedDateWithTZ = modifiedFormatDateWithOptions(inputDate, 'en-US', {timeZone: inputIANATimezone});
     const luxonFormattedDateWithTZ = DateTime.fromISO(inputDate, {zone: inputIANATimezone})
+
+    function modifiedFormatDateWithOptions(unformattedDate: string, locale: string = 'en-US', options?: Intl.DateTimeFormatOptions) {
+        const formatted = new Date(unformattedDate);
+        const defaultOptions: Intl.DateTimeFormatOptions = {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+            timeZoneName: "long"// Added the time zone to make this more explicit
+        };
+
+        return formatted
+            .toLocaleDateString(
+                locale === "en_UK" ? "en-UK" : locale === "en_US" ? "en-US" : locale,
+                {...defaultOptions, ...options} // Also append any options we specify
+            )
+            .replace(",", " ");
+    }
 
     return (
         <main style={{fontSize: '20pt'}}>
