@@ -1,6 +1,6 @@
 import {DateTime, IANAZone, Zone} from 'luxon'
 
-export function modifiedFormatDateWithOptions(unformattedDate: string, locale: string, options?: Intl.DateTimeFormatOptions) {
+export function modifiedFormatDateWithOptions(unformattedDate: string, locale: string = 'en-US', options?: Intl.DateTimeFormatOptions) {
     const formatted = new Date(unformattedDate);
     const defaultOptions: Intl.DateTimeFormatOptions = {
         day: "numeric",
@@ -41,8 +41,9 @@ export default function Home() {
         <main style={{fontSize: '20pt'}}>
             <h2>Inputs</h2>
             <ul>
-                <li>Input date (string): <code>{inputDate}</code></li>
-                <li>Input time zone identifier (string): <code>{inputIANATimezone}</code></li>
+                <li>Input date (string): <code>{inputDate}</code> (this is what you provide now)</li>
+                <li>Input time zone identifier (string): <code>{inputIANATimezone}</code> (you need to add this to each event)</li>
+                <li>Current server time & zone: <code>{modifiedFormatDateWithOptions(new Date().toDateString())}</code> (what JS is using to incorrectly convert your dates)</li>
             </ul>
 
             <h2>Incorrect outputs</h2>
